@@ -1,10 +1,23 @@
-const yourDate = new Date('12-2-2020'),
-  music = [
-    'Doi-Loi-Hoang-Dung',
-    'Meghan-Trainor-Like-Im-Gonna-Lose-You-ft-JohnLegend',
-    'vi-yeu-la-nho',
-    'tu-thich-thich-thanh-thuong-thuong',
-  ];
+const yourDate = new Date('12-2-2020');
+const songName = {
+  'Doi-Loi-Hoang-Dung': 'Đôi lời - Hoàng Dũng',
+  'Meghan-Trainor-Like-Im-Gonna-Lose-You-ft-JohnLegend':
+    'Meghan Trainor Like Im Gonna Lose You ft JohnLegend',
+  'vi-yeu-la-nho': 'Vì yêu là nhớ',
+  'tu-thich-thich-thanh-thuong-thuong': 'Từ thích thích thành thương thương',
+  'the-playah': 'SOOBIN X SLIMV - THE PLAYAH (Special Performance)',
+  'khong-sao-ma-em-day-roi':
+    'KHÔNG SAO MÀ EM ĐÂY RỒI - SUNI HẠ LINH ft. Lou Hoàng',
+};
+
+const music = [
+  'Doi-Loi-Hoang-Dung',
+  'Meghan-Trainor-Like-Im-Gonna-Lose-You-ft-JohnLegend',
+  'vi-yeu-la-nho',
+  'tu-thich-thich-thanh-thuong-thuong',
+  'the-playah',
+  'khong-sao-ma-em-day-roi',
+];
 
 document.addEventListener(
   'DOMContentLoaded',
@@ -33,16 +46,33 @@ document.addEventListener(
       }:${sec > 9 ? sec : '0' + sec}`;
     }
     olock();
-    var timer = setInterval(function () {
-      olock();
-    }, 1000);
-    document
-      .querySelector('audio')
-      .setAttribute(
-        'src',
-        `music/${music[Math.floor(Math.random() * music.length)]}.mp3`
-      );
+    let currentSong = Math.floor(Math.random() * music.length);
+    const play = () => {
+      document
+        .querySelector('audio')
+        .setAttribute('src', `music/${music[currentSong]}.mp3`);
+      document.getElementById('song-name').innerHTML = Object.values(
+        songName
+      ).map((item, index) => {
+        return `
+          <p>
+            ${index === currentSong ? `<strong>${item}</strong>` : item}
+          </p>
+        `;
+      });
+      songName[music[currentSong]];
+      console.log(Object.values(songName));
+    };
+    play();
+    document.getElementById('btn-next').addEventListener('click', () => {
+      currentSong = currentSong === music.length - 1 ? 0 : currentSong + 1;
+      play();
+    });
 
+    document.getElementById('btn-prev').addEventListener('click', () => {
+      currentSong = currentSong ? currentSong - 1 : music.length - 1;
+      play();
+    });
     document
       .getElementsByTagName('body')[0]
       .insertAdjacentHTML('beforeend', "<div id='mask'></div>");

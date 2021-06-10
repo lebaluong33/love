@@ -25,6 +25,23 @@ h1 {
   color: #ec407a;
 }
 
+.play-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.button-p {
+  height: 30px;
+  width: 30px;
+  margin: 0px 5px;
+  z-index: 1000;
+}
+
+#song-name {
+  text-align: center;
+}
+
 #wrapper {
   display: grid;
   grid-column: 3 / 11;
@@ -119,7 +136,7 @@ footer {
 }
 
 #mask {
-  background-image: linear-gradient(to top, #6D6875 0%, #ffafcc 100%);
+  background-image: linear-gradient(to top, #6d6875 0%, #ffafcc 100%);
   opacity: 0.42;
   width: 100vw;
   height: 100vh;
