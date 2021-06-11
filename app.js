@@ -22,8 +22,8 @@ const music = [
 document.addEventListener(
   'DOMContentLoaded',
   function () {
-    var rootTime = document.querySelector('time');
-
+    const rootTime = document.querySelector('time');
+    const audio = document.getElementById('audio');
     document.querySelector('anni').textContent = `${
       yourDate.getDate() > 9 ? yourDate.getDate() : '0' + yourDate.getDate()
     }-${
@@ -50,9 +50,7 @@ document.addEventListener(
     }, 1000);
     let currentSong = Math.floor(Math.random() * music.length);
     const play = () => {
-      document
-        .querySelector('audio')
-        .setAttribute('src', `music/${music[currentSong]}.mp3`);
+      audio.setAttribute('src', `music/${music[currentSong]}.mp3`);
       document.getElementById('song-name').innerHTML = Object.values(
         songName
       ).map((item, index) => {
@@ -66,15 +64,19 @@ document.addEventListener(
       olock();
     };
     play();
-    document.getElementById('btn-next').addEventListener('click', () => {
+    const playNext = () => {
       currentSong = currentSong === music.length - 1 ? 0 : currentSong + 1;
       play();
-    });
-
-    document.getElementById('btn-prev').addEventListener('click', () => {
+    };
+    document.getElementById('btn-next').addEventListener('click', playNext());
+    const playPrev = () => {
       currentSong = currentSong ? currentSong - 1 : music.length - 1;
       play();
-    });
+    };
+    document.getElementById('btn-prev').addEventListener('click', playPrev());
+    audio.onended = () => {
+      playNext();
+    };
     document
       .getElementsByTagName('body')[0]
       .insertAdjacentHTML('beforeend', "<div id='mask'></div>");
