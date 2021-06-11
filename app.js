@@ -1,4 +1,4 @@
-const yourDate = new Date('12-2-2020');
+const yourDate = new Date('Wed Dec 02 2020 00:00:00 GMT+0700');
 const songName = {
   'Doi-Loi-Hoang-Dung': 'Đôi lời - Hoàng Dũng',
   'Meghan-Trainor-Like-Im-Gonna-Lose-You-ft-JohnLegend':
@@ -45,7 +45,9 @@ document.addEventListener(
         min > 9 ? min : '0' + min
       }:${sec > 9 ? sec : '0' + sec}`;
     }
-    olock();
+    setInterval(function () {
+      olock();
+    }, 1000);
     let currentSong = Math.floor(Math.random() * music.length);
     const play = () => {
       document
@@ -61,7 +63,7 @@ document.addEventListener(
         `;
       });
       songName[music[currentSong]];
-      console.log(Object.values(songName));
+      olock();
     };
     play();
     document.getElementById('btn-next').addEventListener('click', () => {
