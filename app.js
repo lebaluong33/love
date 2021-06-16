@@ -66,14 +66,20 @@ document.addEventListener(
     play();
     const playNext = () => {
       currentSong = currentSong === music.length - 1 ? 0 : currentSong + 1;
+      console.log('playNext', currentSong);
       play();
     };
-    document.getElementById('btn-next').addEventListener('click', playNext());
+    document
+      .getElementById('btn-next')
+      .addEventListener('click', () => playNext());
     const playPrev = () => {
       currentSong = currentSong ? currentSong - 1 : music.length - 1;
+      console.log('playPrev', currentSong);
       play();
     };
-    document.getElementById('btn-prev').addEventListener('click', playPrev());
+    document
+      .getElementById('btn-prev')
+      .addEventListener('click', () => playPrev());
     audio.onended = () => {
       playNext();
     };
