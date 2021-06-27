@@ -1,5 +1,11 @@
 const yourDate = new Date('Wed Dec 02 2020 00:00:00 GMT+0700');
 const songName = {
+  'i-miss-you': '[Goblin OST] Soyou - I Miss You (FMV) [HAN-ROM-ENG]',
+  everytime: '[MV] CHEN(첸)XPunch(펀치) - Everytime l 태양의 후예 OST Part.2',
+  'this-love':
+    '[MV] DAVICHI(다비치) - This Love(이 사랑) l 태양의 후예 OST Part.3',
+  'beautiful-in-white': 'Westlife - Beautiful in white',
+  'you-are-my-everything': 'You Are My Everything',
   'Doi-Loi-Hoang-Dung': 'Đôi lời - Hoàng Dũng',
   'Meghan-Trainor-Like-Im-Gonna-Lose-You-ft-JohnLegend':
     'Meghan Trainor Like Im Gonna Lose You ft JohnLegend',
@@ -11,6 +17,11 @@ const songName = {
 };
 
 const music = [
+  'i-miss-you',
+  'everytime',
+  'this-love',
+  'you-are-my-everything',
+  'beautiful-in-white',
   'Doi-Loi-Hoang-Dung',
   'Meghan-Trainor-Like-Im-Gonna-Lose-You-ft-JohnLegend',
   'vi-yeu-la-nho',
@@ -49,24 +60,36 @@ document.addEventListener(
       olock();
     }, 1000);
     let currentSong = Math.floor(Math.random() * music.length);
+    const scrollToSong = () => {
+      const currentSongEl = document.getElementById(music[currentSong]);
+      currentSongEl.scrollIntoView();
+    };
     const play = () => {
       audio.setAttribute('src', `music/${music[currentSong]}.mp3`);
-      document.getElementById('song-name').innerHTML = Object.values(
-        songName
-      ).map((item, index) => {
-        return `
-          <p>
-            ${index === currentSong ? `<strong>${item}</strong>` : item}
-          </p>
+      let htmlRender = '';
+      Object.values(songName).map((item, index) => {
+        htmlRender += `<div class="song-name-container" id=${music[index]}>
+        ${
+          index === currentSong
+            ? `<img id="dvd-icon-spin" src="./img/couple.jpg"/>`
+            : ''
+        }
+            <p>
+              ${index === currentSong ? `<strong>${item}</strong>` : item}
+            </p>
+        </div>
         `;
       });
+      document.getElementById(
+        'song-name'
+      ).innerHTML = `<div>${htmlRender}<div/>`;
       songName[music[currentSong]];
+      scrollToSong();
       olock();
     };
     play();
     const playNext = () => {
       currentSong = currentSong === music.length - 1 ? 0 : currentSong + 1;
-      console.log('playNext', currentSong);
       play();
     };
     document
@@ -74,7 +97,6 @@ document.addEventListener(
       .addEventListener('click', () => playNext());
     const playPrev = () => {
       currentSong = currentSong ? currentSong - 1 : music.length - 1;
-      console.log('playPrev', currentSong);
       play();
     };
     document
