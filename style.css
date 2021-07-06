@@ -92,6 +92,11 @@ h1 {
   text-align: center;
 }
 
+.song-name-container p {
+  user-select: none;
+  cursor: pointer;
+}
+
 /*  */
 
 #wrapper {
@@ -162,7 +167,6 @@ time {
   width: 50%;
   display: block;
   margin: auto;
-  z-index: 1000;
 }
 
 anni {
@@ -203,6 +207,7 @@ footer {
   position: fixed;
   top: 0;
   left: 0;
+  pointer-events: none;
 }
 
 @media (max-width: 992px) {

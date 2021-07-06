@@ -68,13 +68,13 @@ document.addEventListener(
       audio.setAttribute('src', `music/${music[currentSong]}.mp3`);
       let htmlRender = '';
       Object.values(songName).map((item, index) => {
-        htmlRender += `<div class="song-name-container" id=${music[index]}>
+        htmlRender += `<div class="song-name-container">
         ${
           index === currentSong
             ? `<img id="dvd-icon-spin" src="./img/couple.jpg"/>`
             : ''
         }
-            <p>
+            <p id=${music[index]}>
               ${index === currentSong ? `<strong>${item}</strong>` : item}
             </p>
         </div>
@@ -86,6 +86,13 @@ document.addEventListener(
       songName[music[currentSong]];
       scrollToSong();
       olock();
+
+      music.map((item, index) => {
+        document.getElementById(item).addEventListener('dblclick', function () {
+          currentSong = index;
+          play();
+        });
+      });
     };
     play();
     const playNext = () => {
